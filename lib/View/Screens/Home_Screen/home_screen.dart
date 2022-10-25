@@ -1,4 +1,5 @@
 import 'package:currency_converter/Logic/controllers/home_controller.dart';
+import 'package:currency_converter/Routes/routes.dart';
 import 'package:currency_converter/Utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,21 +32,33 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               flex: 3,
-                              child: Row(
-                                children:  [
-                                  Text(
-                                    "Kuwait dinar KWD",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  // SizedBox(width: 10),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 20,
-                                  )
-                                ],
+                              child: TextButton(
+                                onPressed: (){
+                                  homeController.firstValueSelected(true);
+                                  Get.toNamed(Routes.selectCurrencyScreen);
+                                },
+                                child: Row(
+                                  children:  [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "${homeController.firstValue}",
+                                        style: const TextStyle(fontSize: 15),
+                                      ),
+                                    ),
+                                    // SizedBox(width: 10),
+                                    const Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 20,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                            Expanded(
+                            const Expanded(
                               flex: 1,
                               child: Text(
                                 "100",
@@ -64,21 +77,33 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               flex: 3,
-                              child: Row(
-                                children:  [
-                                  Text(
-                                    "Egyptian Pound EGP",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  // SizedBox(width: 10),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 20,
-                                  )
-                                ],
+                              child: TextButton(
+                                onPressed: (){
+                                  homeController.secondValueSelected(true);
+                                  Get.toNamed(Routes.selectCurrencyScreen);
+                                },
+                                child: Row(
+                                  children:  [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "${homeController.secondValue}",
+                                        style: const TextStyle(fontSize: 15),
+                                      ),
+                                    ),
+                                    // SizedBox(width: 10),
+                                    const Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 20,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                            Expanded(
+                            const Expanded(
                               flex: 1,
                               child: Text(
                                 "6.336",
