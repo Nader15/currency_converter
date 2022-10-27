@@ -13,9 +13,11 @@ class SelectCurrencyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.BLACK_COLOR,
       appBar: AppBar(
         title: const Text("Select Currency"),
         centerTitle: true,
+        backgroundColor: AppColors.Tile_DARK_COLOR,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: Padding(
@@ -29,10 +31,12 @@ class SelectCurrencyScreen extends StatelessWidget {
         itemCount: homeController.currenciesList.length,
         itemBuilder: (BuildContext context, int index) {
           return Obx(() {
-            var country = "${homeController.currenciesList[index].currency[0].toLowerCase()}${homeController.currenciesList[index].currency[1].toLowerCase()}";
+            var country =
+                "${homeController.currenciesList[index].currency[0].toLowerCase()}${homeController.currenciesList[index].currency[1].toLowerCase()}";
             if (homeController.searchKey.value.isEmpty) {
               return ListTile(
                 onTap: () async {
+                  Get.back();
                   if (homeController.firstCountrySelected.value) {
                     homeController.firstCountry.value =
                         homeController.currenciesList[index].country;
@@ -48,33 +52,40 @@ class SelectCurrencyScreen extends StatelessWidget {
                   homeController.firstCountrySelected(false);
                   homeController.secondCountrySelected(false);
                   await homeController.convertCurrencies();
-                  Get.back();
                 },
-                tileColor: AppColors.WHITE_COLOR,
-                leading: FadeInImage.assetNetwork(
-                  placeholder: "assets/images/placeholder.jpg",
-                  // fit: BoxFit.cover,
-                  // height: 15,
-                  width: 40,
-                  fit: BoxFit.cover,
-                  image: "https://flagcdn.com/w20/$country.png",
-                  imageErrorBuilder: (c, o, s) => Image.asset(
-                    "assets/images/placeholder.jpg",
-                    // fit: BoxFit.cover,
-                    height: 30,
-                    width: 40,
-                    fit: BoxFit.cover,
+                tileColor: AppColors.BLACK_COLOR,
+                leading: SizedBox(
+                  height: 30,
+                  width: 50,
+
+                  child: SvgPicture.network(
+                    "https://flagcdn.com/$country.svg",
+                    fit: BoxFit.fill,
+                    placeholderBuilder: (BuildContext context){
+                      return Image.asset(
+                        "assets/images/placeholder.jpg",
+                        // fit: BoxFit.cover,
+                        height: 30,
+                        width: 50,
+                        fit: BoxFit.cover,
+                      );
+                    },
                   ),
                 ),
                 title: Text(
                   homeController.currenciesList[index].country,
-                  style: const TextStyle(fontSize: 10),
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: AppColors.WHITE_COLOR,
+                  ),
                 ),
                 trailing: Text(
                   homeController.currenciesList[index].currency,
-                  style: const TextStyle(fontSize: 15),
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: AppColors.WHITE_COLOR,
+                  ),
                 ),
-
               );
             } else {
               if (homeController.currenciesList[index].country
@@ -89,6 +100,7 @@ class SelectCurrencyScreen extends StatelessWidget {
                           homeController.searchKey.value.toLowerCase())) {
                 return ListTile(
                   onTap: () async {
+                    Get.back();
                     if (homeController.firstCountrySelected.value) {
                       homeController.firstCountry.value =
                           homeController.currenciesList[index].country;
@@ -104,9 +116,8 @@ class SelectCurrencyScreen extends StatelessWidget {
                     homeController.firstCountrySelected(false);
                     homeController.secondCountrySelected(false);
                     await homeController.convertCurrencies();
-                    Get.back();
                   },
-                  tileColor: AppColors.WHITE_COLOR,
+                  tileColor: AppColors.BLACK_COLOR,
                   leading: FadeInImage.assetNetwork(
                     placeholder: "assets/images/placeholder.jpg",
                     // fit: BoxFit.cover,
@@ -124,13 +135,18 @@ class SelectCurrencyScreen extends StatelessWidget {
                   ),
                   title: Text(
                     homeController.currenciesList[index].country,
-                    style: const TextStyle(fontSize: 10),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: AppColors.WHITE_COLOR,
+                    ),
                   ),
                   trailing: Text(
                     homeController.currenciesList[index].currency,
-                    style: const TextStyle(fontSize: 15),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: AppColors.WHITE_COLOR,
+                    ),
                   ),
-
                 );
               }
               return Container();

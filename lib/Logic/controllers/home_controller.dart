@@ -7,7 +7,9 @@ import '../../Services/countries_services.dart';
 import '../../Utils/local_storage/local_storage.dart';
 
 class HomeController extends GetxController {
-  var isLoading = false.obs;
+  var isLoading = true.obs;
+  var firstValueIsLoading = false.obs;
+  var secondValueIsLoading = false.obs;
 
   var currenciesList = <Currencies>[].obs;
   var firstCountry = 'Kuwait dinar'.obs;
@@ -32,9 +34,15 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+  Future<void> onRefreshHomePage() async {
+    await Future.delayed(const Duration(seconds: 1), () {
+      convertCurrencies();
+    });
+  }
+
   getCountries() async {
-    var countries = await HomeServices().getCountries();
     try {
+      var countries = await HomeServices().getCountries();
       isLoading(true);
       if (countries.currencies!.isNotEmpty) {
         countries.currencies!
@@ -48,11 +56,15 @@ class HomeController extends GetxController {
 
   convertCurrencies() async {
     try {
+      if (firstValueSelected.value) {
+        secondValueIsLoading(true);
+      }
+      if (secondValueSelected.value) {
+        firstValueIsLoading(true);
+      }
       var convert = await HomeServices().convertCurrencies(
-          firstValueSelected.value
-              ?   firstCurrency.value:secondCurrency.value,
-          firstValueSelected.value
-              ?   secondCurrency.value:firstCurrency.value,
+          firstValueSelected.value ? firstCurrency.value : secondCurrency.value,
+          firstValueSelected.value ? secondCurrency.value : firstCurrency.value,
           firstValueSelected.value
               ? firstValueController.value.text
               : secondValueController.value.text);
@@ -64,36 +76,38 @@ class HomeController extends GetxController {
         print("result 1 --> ${secondValueController.value.text}");
       }
       if (secondValueSelected.value) {
-        firstValueController.value.text = convert["result"][firstCurrency.value].toString();
+        firstValueController.value.text =
+            convert["result"][firstCurrency.value].toString();
         print("result 2 --> ${firstValueController.value.text}");
       }
     } finally {
       isLoading(false);
+      firstValueIsLoading(false);
+      secondValueIsLoading(false);
       searchKey.value = '';
     }
   }
 
-
   final keys = [
-    ['1', '2', '3'],
-    ['4', '5', '6'],
-    ['7', '8', '9'],
-    ['.', '0', "*"],
+    ['1', '2', '3', 'C'],
+    ['4', '5', '6', ''],
+    ['7', '8', '9', ''],
+    ['00', '0', ".", 'R'],
   ];
-  var amount= ''.obs;
+  var amount = ''.obs;
 
   onNumberPress(val) {
-    if (val == '0' && amount.value.isEmpty) {
+    if (val == '0' && amount.value.length == 1&&amount.value.contains("0")) {
       return;
     }
     if (val == '.' && amount.value.contains(".")) {
       return;
     }
     amount.value = amount.value + val;
-    if(firstValueSelected.value){
+    if (firstValueSelected.value) {
       firstValueController.value.clear();
       firstValueController.value.text = amount.value;
-    }else{
+    } else {
       secondValueController.value.clear();
       secondValueController.value.text = amount.value;
     }
@@ -103,24 +117,50 @@ class HomeController extends GetxController {
     }
   }
 
-  onBackspacePress(val) {
-    amount.value = amount.value.substring(0, amount.value.length - 1);
-    if (kDebugMode) {
-      print(amount.value);
+  onBackspacePress() {
+    try {
+      firstValueIsLoading(true);
+      secondValueIsLoading(true);
+      if (amount.value.length == 1) {
+        amount.value = '';
+        firstValueController.value.text = "0";
+        secondValueController.value.text = "0";
+      }
+      amount.value = amount.value.substring(0, amount.value.length - 1);
+      if (firstValueSelected.value) {
+        firstValueController.value.clear();
+        firstValueController.value.text = amount.value;
+      } else {
+        secondValueController.value.clear();
+        secondValueController.value.text = amount.value;
+      }
+      convertCurrencies();
+      if (kDebugMode) {
+        print(amount.value);
+      }
+    } finally {
+      firstValueIsLoading(false);
+      secondValueIsLoading(false);
     }
   }
 
-  onClearPress(val) {
-    amount.value = '';
-    firstValueController.value.text = "0";
-    secondValueController.value.text = "0";
-    if (kDebugMode) {
-      print("amount --> ${amount.value}");
-      print("firstValueController --> ${firstValueController.value.text}");
-      print("secondValueController --> ${secondValueController.value.text}");
+  onClearPress() {
+    try {
+      firstValueIsLoading(true);
+      secondValueIsLoading(true);
+      amount.value = '';
+      firstValueController.value.text = "0";
+      secondValueController.value.text = "0";
+      if (kDebugMode) {
+        print("amount --> ${amount.value}");
+        print("firstValueController --> ${firstValueController.value.text}");
+        print("secondValueController --> ${secondValueController.value.text}");
+      }
+    } finally {
+      firstValueIsLoading(false);
+      secondValueIsLoading(false);
     }
   }
 
   var searchKey = ''.obs;
-
 }

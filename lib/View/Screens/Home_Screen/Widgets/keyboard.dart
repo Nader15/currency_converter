@@ -15,28 +15,22 @@ class CustomKeyboardScreen extends StatelessWidget {
           (x) => Expanded(
             // flex: 2,
             child: Container(
-              color: AppColors.Tile_DARK_COLOR,
+              color: AppColors.BLACK_COLOR,
               child: Column(
                 children: [
                   Expanded(
                     child: Row(
                       children: x.map((y) {
-                        if (y == "*") {
-                          return Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                homeController.onClearPress(y);
-                              },
-                              child: Container(
-                                  alignment: Alignment.center,
-                                  color: AppColors.TEAL_COLOR,
-                                  margin: const EdgeInsets.all(2),
-                                  child: const Icon(
-                                    Icons.clear,
-                                    color: AppColors.WHITE_COLOR,
-                                  )),
-                            ),
-                          );
+                        if (y == "C") {
+                          return KeyboardClearKey();
+                        }
+                        if (y == "R") {
+                          return KeyboardRedoKey();
+                        }if (y == "") {
+                          return Expanded(child: Container(
+                            margin: EdgeInsets.fromLTRB(2,0,2,0),
+                            color: AppColors.Tile_DARK_COLOR,
+                          ));
                         } else {
                           return Expanded(
                             child: KeyboardKey(
@@ -56,7 +50,6 @@ class CustomKeyboardScreen extends StatelessWidget {
         )
         .toList();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -108,10 +101,64 @@ class KeyboardKey extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.all(2),
-        color: AppColors.MAIN_COLOR,
+        color: AppColors.Tile_DARK_COLOR,
         child: Center(
           child: renderLabel(),
         ),
+      ),
+    );
+  }
+}
+
+class KeyboardClearKey extends StatelessWidget {
+  KeyboardClearKey({super.key});
+
+  final homeController = Get.find<HomeController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: InkWell(
+        onTap: () {
+          homeController.onClearPress();
+        },
+        child: Container(
+          alignment: Alignment.center,
+          color: AppColors.TEAL_COLOR,
+          margin: const EdgeInsets.all(2),
+          child: const Text(
+            "C",
+            style: TextStyle(
+                color: AppColors.WHITE_COLOR,
+                fontSize: 25,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class KeyboardRedoKey extends StatelessWidget {
+  KeyboardRedoKey({super.key});
+
+  final homeController = Get.find<HomeController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: InkWell(
+        onTap: () {
+          homeController.onBackspacePress();
+        },
+        child: Container(
+            alignment: Alignment.center,
+            color: AppColors.TEAL_COLOR,
+            margin: const EdgeInsets.all(2),
+            child: const Icon(
+              Icons.clear,
+              color: AppColors.WHITE_COLOR,
+            )),
       ),
     );
   }

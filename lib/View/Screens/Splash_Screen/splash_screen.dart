@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:currency_converter/Utils/app_icons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../Routes/routes.dart';
 import '../../../Utils/app_colors.dart';
@@ -19,11 +21,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashViewState extends State<SplashScreen> {
   late Timer timer;
 
-  void _goNext() =>  Get.offAllNamed(Routes.homeScreen);
-
+  void _goNext() => Get.offAllNamed(Routes.homeScreen);
 
   startDelay() {
-    timer = Timer(const Duration(seconds: 3), _goNext);
+    timer = Timer(const Duration(seconds: 5), _goNext);
   }
 
   @override
@@ -34,12 +35,53 @@ class _SplashViewState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      // backgroundColor: AppColors.BLACK_COLOR,
-      body: Center(
-        child: Hero(
-          tag: 'logo',
-          child: Icon(Icons.currency_exchange,size: 50,)
+    return Scaffold(
+      backgroundColor: AppColors.BLACK_COLOR,
+      floatingActionButton:  Align(
+        alignment: AlignmentDirectional.bottomCenter,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Developed by Nader Salah",
+              style: TextStyle(
+                color: AppColors.Tile_DARK_COLOR,
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Row(
+              children: [
+                const Icon(Icons.copyright_outlined,color: AppColors.Tile_DARK_COLOR,),
+                Text(
+                  "${DateTime.now().year}",
+                  style: const TextStyle(
+                    color: AppColors.Tile_DARK_COLOR,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:  [
+              Lottie.asset(
+                  AppIcons.animated_currency,height: 100),
+              const SizedBox(height: 20),
+              const Text(
+                "Currency Converter App",
+                style: TextStyle(
+                  color: AppColors.WHITE_COLOR,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

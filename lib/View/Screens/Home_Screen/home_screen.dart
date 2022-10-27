@@ -17,6 +17,7 @@ class HomeScreen extends StatelessWidget {
       return Scaffold(
           backgroundColor: AppColors.BLACK_COLOR,
           appBar: AppBar(
+            backgroundColor: AppColors.Tile_DARK_COLOR,
             title: const Text("Exchange Rate"),
             centerTitle: true,
           ),
@@ -28,6 +29,7 @@ class HomeScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
                     child: Column(
                       children: [
                         Row(
@@ -58,6 +60,7 @@ class HomeScreen extends StatelessWidget {
                                       child: Icon(
                                         Icons.arrow_forward_ios,
                                         size: 20,
+                                        color: AppColors.Tile_DARK_COLOR,
                                       ),
                                     )
                                   ],
@@ -80,7 +83,8 @@ class HomeScreen extends StatelessWidget {
                                     homeController.secondValueSelected(false);
                                   },
                                   child: ConditionalBuilder(
-                                    condition: !homeController.isLoading.value,
+                                    condition: !homeController
+                                        .firstValueIsLoading.value,
                                     builder: (context) => Text(
                                       homeController
                                           .firstValueController.value.text,
@@ -133,6 +137,7 @@ class HomeScreen extends StatelessWidget {
                                       child: Icon(
                                         Icons.arrow_forward_ios,
                                         size: 20,
+                                        color: AppColors.Tile_DARK_COLOR,
                                       ),
                                     )
                                   ],
@@ -155,7 +160,8 @@ class HomeScreen extends StatelessWidget {
                                     homeController.firstValueSelected(false);
                                   },
                                   child: ConditionalBuilder(
-                                    condition: !homeController.isLoading.value,
+                                    condition: !homeController
+                                        .secondValueIsLoading.value,
                                     builder: (context) => Text(
                                       homeController
                                           .secondValueController.value.text,
@@ -184,7 +190,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-               Expanded(
+              Expanded(
                 child: CustomKeyboardScreen(),
               )
             ],

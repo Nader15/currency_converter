@@ -21,12 +21,12 @@ class SearchTextField extends StatelessWidget {
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(10)),
           hintText: 'Search',
-          suffixIcon: const Icon(
+          suffixIcon:  Icon(
             Icons.search,
-            color: AppColors.BLACK_COLOR,
+            color: AppColors.GREY_COLOR,
           ),
-          hintStyle: const TextStyle(
-              color: AppColors.BLACK_COLOR, fontSize: 13)),
+          hintStyle:  TextStyle(
+              color: AppColors.GREY_COLOR, fontSize: 13)),
       onChanged: (val) {
         homeController.searchKey.value = val;
       },
