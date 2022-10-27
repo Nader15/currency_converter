@@ -25,6 +25,9 @@ class HomeController extends GetxController {
   var firstValueSelected = true.obs;
   var secondValueSelected = false.obs;
 
+
+  var updatedDate = DateTime.now().obs;
+
   @override
   void onInit() async {
     firstValueController.value.text = '1';
@@ -85,6 +88,7 @@ class HomeController extends GetxController {
       firstValueIsLoading(false);
       secondValueIsLoading(false);
       searchKey.value = '';
+      updatedDate.value = DateTime.now();
     }
   }
 

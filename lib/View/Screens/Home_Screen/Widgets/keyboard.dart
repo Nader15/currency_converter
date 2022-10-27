@@ -13,7 +13,7 @@ class CustomKeyboardScreen extends StatelessWidget {
     return homeController.keys
         .map(
           (x) => Expanded(
-            // flex: 2,
+            flex: 2,
             child: Container(
               color: AppColors.BLACK_COLOR,
               child: Column(
