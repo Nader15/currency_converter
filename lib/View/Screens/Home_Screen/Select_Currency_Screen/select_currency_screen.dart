@@ -27,46 +27,46 @@ class SelectCurrencyScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemCount: homeController.currenciesList.length,
         itemBuilder: (BuildContext context, int index) {
-          // return Obx(() {
-            // if (homeController.searchKey.value.isEmpty) {
-            //   return ListTile(
-            //     onTap: () async {
-            //       if (homeController.firstCountrySelected.value) {
-            //         homeController.firstCountry.value =
-            //             homeController.currenciesList[index].country;
-            //         homeController.firstCurrency.value =
-            //             homeController.currenciesList[index].currency;
-            //       }
-            //       if (homeController.secondCountrySelected.value) {
-            //         homeController.secondCountry.value =
-            //             homeController.currenciesList[index].country;
-            //         homeController.secondCurrency.value =
-            //             homeController.currenciesList[index].currency;
-            //       }
-            //       homeController.firstCountrySelected(false);
-            //       homeController.secondCountrySelected(false);
-            //       await homeController.convertCurrencies();
-            //       Get.back();
-            //     },
-            //     tileColor: AppColors.WHITE_COLOR,
-            //     leading: Text(
-            //       homeController.currenciesList[index].currency,
-            //       style: const TextStyle(fontSize: 15),
-            //     ),
-            //     title: Text(
-            //       homeController.currenciesList[index].country,
-            //       style: const TextStyle(fontSize: 10),
-            //     ),
-            //   );
-            // }
-            // else{
-            //   if (homeController.currenciesList[index].country
-            //       .toString()
-            //       .toLowerCase()
-            //       .startsWith(homeController.searchKey.value.toLowerCase())||homeController.currenciesList[index].currency
-            //       .toString()
-            //       .toLowerCase()
-            //           .startsWith(homeController.searchKey.value.toLowerCase())){
+          return Obx(() {
+            if (homeController.searchKey.value.isEmpty) {
+              return ListTile(
+                onTap: () async {
+                  if (homeController.firstCountrySelected.value) {
+                    homeController.firstCountry.value =
+                        homeController.currenciesList[index].country;
+                    homeController.firstCurrency.value =
+                        homeController.currenciesList[index].currency;
+                  }
+                  if (homeController.secondCountrySelected.value) {
+                    homeController.secondCountry.value =
+                        homeController.currenciesList[index].country;
+                    homeController.secondCurrency.value =
+                        homeController.currenciesList[index].currency;
+                  }
+                  homeController.firstCountrySelected(false);
+                  homeController.secondCountrySelected(false);
+                  await homeController.convertCurrencies();
+                  Get.back();
+                },
+                tileColor: AppColors.WHITE_COLOR,
+                leading: Text(
+                  homeController.currenciesList[index].currency,
+                  style: const TextStyle(fontSize: 15),
+                ),
+                title: Text(
+                  homeController.currenciesList[index].country,
+                  style: const TextStyle(fontSize: 10),
+                ),
+              );
+            }
+            else{
+              if (homeController.currenciesList[index].country
+                  .toString()
+                  .toLowerCase()
+                  .startsWith(homeController.searchKey.value.toLowerCase())||homeController.currenciesList[index].currency
+                  .toString()
+                  .toLowerCase()
+                      .startsWith(homeController.searchKey.value.toLowerCase())){
                 return ListTile(
                   onTap: () async {
                     if (homeController.firstCountrySelected.value) {
@@ -97,10 +97,10 @@ class SelectCurrencyScreen extends StatelessWidget {
                     style: const TextStyle(fontSize: 10),
                   ),
                 );
-          //     }
-          //     return Container();
-          //   }
-          // });
+              }
+              return Container();
+            }
+          });
         },
         // separatorBuilder: (context, index) {
         //   return Divider(
