@@ -37,8 +37,8 @@ class _SplashViewState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.BLACK_COLOR,
-      floatingActionButton:  Align(
-        alignment: AlignmentDirectional.bottomCenter,
+      floatingActionButton:  Center(
+        heightFactor: 2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -46,18 +46,27 @@ class _SplashViewState extends State<SplashScreen> {
               "Developed by Nader Salah",
               style: TextStyle(
                 color: AppColors.Tile_DARK_COLOR,
-                fontSize: 12,
+                fontSize: 10,
               ),
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 10),
+            const Text(
+              "linkedin.com/in/nader15",
+              style: TextStyle(
+                color: AppColors.Tile_DARK_COLOR,
+                fontSize: 10,
+                decoration: TextDecoration.underline
+              ),
+            ),
+            const SizedBox(width: 10),
             Row(
               children: [
-                const Icon(Icons.copyright_outlined,color: AppColors.Tile_DARK_COLOR,),
+                const Icon(Icons.copyright_outlined,color: AppColors.Tile_DARK_COLOR,size: 20,),
                 Text(
                   "${DateTime.now().year}",
                   style: const TextStyle(
                     color: AppColors.Tile_DARK_COLOR,
-                    fontSize: 12,
+                    fontSize: 10,
                   ),
                 ),
               ],
