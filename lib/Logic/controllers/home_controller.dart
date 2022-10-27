@@ -69,6 +69,7 @@ class HomeController extends GetxController {
       }
     } finally {
       isLoading(false);
+      searchKey.value = '';
     }
   }
 
