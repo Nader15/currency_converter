@@ -56,5 +56,4 @@ const Map<String, String> en = {
   "update_client_name": "Update name",
   "confirm": "Confirm",
   "no_products": "There are no products in this category",
-  "skip": "Skip",
 };
