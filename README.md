@@ -9,7 +9,7 @@ Currencies Converter is an app used for converting currencies values to several 
 
 ## ScreenShots
 
-img src="assets/screenshots/screenshot1.jpg
+img src="assets/screenshots/screenshot1.jpg" width="300"
 
 <table>
     <tr>
