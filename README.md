@@ -11,7 +11,7 @@ Currencies Converter is an app used for converting currencies values to several 
 
 <table>
     <tr>
-        <td><img src="assets/screenshots/screenshot1.jpg" height="300"/></td>
+        <td><img src="assets/screenshots/created_files_img.jpeg" height="300"/></td>
     </tr>
 </table>
 
